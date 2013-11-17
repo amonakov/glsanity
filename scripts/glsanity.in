@@ -1,0 +1,15 @@
+#!/bin/bash
+
+checkers32=@CHECKERS32@
+checkers64=@CHECKERS64@
+
+run_checks()
+{
+  local PATH=$2:$PATH
+  echo Running $1-bit tests
+
+  glsanity-lib && glsanity-x11 && glsanity-glx
+}
+
+test -x /lib/ld-linux.so.2 && run_checks 32 $checkers32
+test -x /lib/ld-linux-x86-64.so.2 && run_checks 64 $checkers64

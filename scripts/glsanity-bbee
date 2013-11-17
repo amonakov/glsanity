@@ -1,0 +1,12 @@
+#!/bin/bash
+
+glsanity=${0%-bbee}
+
+echo "Checking native (usually Mesa/i965) GL"
+$glsanity
+
+echo "Checking secondary (usually NVIDIA) GL"
+optirun -b none env DISPLAY=:8 $glsanity
+
+echo "Testing offloading with primus"
+optirun -b primus $glsanity
